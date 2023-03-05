@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Web Randomizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <script>
+        window.alert("Hi, it's my randomizer. You have to enter any number or list of items or people to get random value.")
+    </script>
+    <script>
+        function replace_spaces(event) {
+            event.target.value = event.target.value.replace(' ', '_');
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(145deg, #ee82ee, slateblue, #ffd86a, purple);
+            font-family: 'Comic Sans MS',
+            'Chalkboard SE', 'Comic Neue', sans-serif;
+        }
+
+        h1 {
+            color: cyan;
+            text-align: center;
+            text-shadow: 5px 2px 4px grey;
+        }
+
+        h4 {
+            color: navy;
+
+        }
+
+        #header {
+            font-size: 1.2em;
+            line-height:65px;
+            letter-spacing: 2px;
+            text-align: left;
+            text-transform: uppercase;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            background-size: 400%;
+            animation: move 5s ease infinite;
+            background-image: linear-gradient( 68.7deg,  rgba(29,173,235,1) 13.2%, rgba(137,149,250,1) 29.8%, rgba(229,109,212,1) 48.9%, rgba(255,68,128,1) 68.2%, rgba(255,94,0,1) 86.4% );
+        }
+
+        @keyframes move {
+            0%,100%{
+                background-position: 200% 0%;
+            }
+
+            50%{
+                background-position: 0% 200%;
+            }
+        }
+
+        #textarea_block, #input_block{
+            display: block;
+            margin: auto;
+        }
+
+        #otherButtons {
+            background-color: darkSeaGreen;
+            border-radius: 5px;
+            border-style: inset;
+            margin-left: 5px;
+        }
+
+        #button_block {
+            /*margin-left: 35%;*/
+            margin: auto;
+            display: inline-flex;
+
+        }
+
+        #numberInput {
+            margin: 5px;
+        }
+
+        .btn {
+            margin: 5px;
+        }
+
+        #textarea {
+            height: 500px;
+            width: 350px;
+        }
+
+        #checkbox {
+            margin: 5px;
+            height: 20px;
+            width: 20px;
+        }
+
+        .pwdRadio {
+            margin: 10px;
+            height: 20px;
+            width: 20px;
+        }
+
+        #image {
+            width: 200px;
+            height: 200px;
+            margin-left: 10px;
+        }
+
+        #character {
+            text-align: left;
+            font-size: 1em;
+            padding-left: 10px;
+        }
+
+        .color {
+            height: 50px;
+            width: 150px;
+            margin: 10px;
+            border: 1px solid;
+        }
+
+        label {
+            /*font-family: 'Comic Sans MS',
+        'Chalkboard SE', 'Comic Neue', sans-serif;*/
+        }
+
+        p {
+            font-size: 0.6em;
+            text-align: right;
+            padding: 3px;
+        }
+    </style>
+</head>
+
+<body>
+<div hidden="hidden" id="alert_block" class="alert alert-primary alert-dismissible fade show" role="alert">
+    <strong id="alert">Please, enter data!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div>
+    <h1>Randomizer</h1>
+</div>
+
+<div><h4 align="center">Enter a number or participations</h4></div>
+
+<div align="center" id="textarea_block">
+
+    <textarea id="textarea" placeholder ="Please,enter any list of items (parcipitations) or any number to get random value.To enter the next item of the list use Enter key" oninput="replace_spaces(event)"></textarea>
+
+</div>
+
+<div align="center" hidden="hidden" id="quantityDiv">
+    <label> Enter quantity <input class="form-control col-4" id="quantity" type="text"/></label>
+</div>
+
+<div align="center" hidden="hidden" id="passwordDiv">
+    <label> Enter password length <input class="form-control col-4" id="pwd_len" type="text"/></label>
+
+    <div>
+        <label><input type="radio" class="pwdRadio" name="radio" value="light" id="light"/>Light</label>
+        <label><input type="radio" class="pwdRadio" name="radio" value="middle" id="middle"/>Middle</label>
+        <label><input type="radio" class="pwdRadio" name="radio" value="difficult" id="difficult"/>Difficult</label>
+    </div>
+</div>
+
+<div id="button_block  col-sm col-md col-xs" >
+
+    <button class="btn btn-primary" id="number">Random number <i class="fa-solid fa-arrow-down-1-9"></i></button>
+    <button class="btn btn-primary" id="item">Random item <i class="fa-solid fa-shuffle"></i></button>
+    <button class="btn btn-outline-primary" onclick="showAllButtons()" ondblclick="hideAllButtons()">Other functions</button>
+    <button type="reset" class="btn btn-outline-danger" id="reset">Reset</button>
+    <div class="col-8" id="otherButtons" hidden="hidden" >
+        <button class="btn btn-warning" id="list">Random order <i class="fa-solid fa-list-ul"></i></button>
+        <button class="btn btn-success" id="severalItems" onclick="showInput()"> Several random items <i class="fa-solid fa-list-check"></i></button>
+        <button class="btn btn-secondary" id="password" onclick="showCheckboxs()">Random password <i class="fa-solid fa-key"></i></button>
+        <button class="btn btn-info" id="color">Random color <i class="fa-solid fa-palette"></i></button>
+        <button class="btn btn-light" id="smile">Random smile <i class="fa-solid fa-face-grin"></i></button>
+        <button class="btn btn-dark" id="animImage">Random Naruto character <i class="fa-solid fa-user-ninja"></i></button>
+    </div>
+</div>
+
+<hr width="40%" align="left"/>
+
+<aside>
+    <div class="form-inline">
+        <label>
+            <input class="form-control" id="checkbox"type="checkbox" oninput="showInputs()"/> <span class="badge badge-warning">Use number range</span>
+        </label>
+    </div>
+
+    <div class="form-inline" hidden="hidden" id="numberInput">
+        <label> From &nbsp; <input class="form-control col-4" id="firstNumber" type="text" autocomplete="off"/></label>
+        <label> To &nbsp; <input class="form-control col-4" id="secondNumber" type="text" autocomplete="off"/></label>
+        <button class="btn btn-light" id="range"> Get random number <i class="fa-solid fa-shuffle"></i></button>
+    </div>
+</aside>
+
+<div class="container-fluid"><h2 id="header"></h2></div>
+
+<div><h2 id="smileHeader" hidden="hidden"></h2></div>
+
+<div class="color" hidden="hidden"></div>
+
+<div><img src="" id = "image" alt="it is a photo!" hidden="hidden"><p id="character"></p></div>
+
+<p>by Andrey Sosnytskyi</p>
+
+<script>
+    function showInput(){
+        document.getElementById("quantityDiv").removeAttribute("hidden", true);
+    }
+</script>
+
+<script>
+    function showCheckboxs(){
+        document.getElementById("passwordDiv").removeAttribute("hidden", true);
+    }
+</script>
+
+<script>
+    function showAllButtons(){
+        document.getElementById("otherButtons").removeAttribute("hidden", true);
+    }
+
+    function hideAllButtons(){
+        document.getElementById("otherButtons").setAttribute("hidden", true);
+    }
+</script>
+
+<script>
+    function showInputs(){
+        var checkbox = document.getElementById("checkbox");
+
+        if(checkbox.checked){
+            document.getElementById("numberInput").removeAttribute("hidden", true);
+        }
+        else{
+            document.getElementById("numberInput").setAttribute("hidden", true);
+        }
+    }
+</script>
+
+<script>
+    /* variables */
+
+    var textarea = document.getElementById("textarea");
+
+    var number = document.getElementById("number");
+
+    var range = document.getElementById("range");
+
+    var item = document.getElementById("item");
+
+    var list = document.getElementById("list");
+
+    var severalItems = document.getElementById("severalItems");
+
+    var quantity = document.getElementById("quantity");
+
+    var quantityDiv = document.getElementById("quantityDiv");
+
+    var pwd_len = document.getElementById("pwd_len");
+
+    var password = document.getElementById("password");
+
+    var radio = document.querySelectorAll(".pwdRadio");
+
+    var passwordDiv = document.getElementById("passwordDiv");
+
+    var color = document.getElementById("color");
+
+    var coloredDiv = document.querySelector(".color");
+
+    var smile = document.getElementById("smile");
+
+    var smileHeader = document.getElementById("smileHeader");
+
+    var image = document.getElementById("image");
+
+    var character = document.getElementById("character");
+
+    var animImage = document.getElementById("animImage");
+
+    var header = document.getElementById("header");
+
+    var firstNumber = document.getElementById("firstNumber");
+
+    var secondNumber = document.getElementById("secondNumber");
+
+    var alert = document.getElementById("alert");
+
+    var alertBlock = document.getElementById("alert_block");
+
+    var reset = document.getElementById("reset");
+
+
+    var RandNumber = 0;
+
+    /* Button listeners */
+
+    /* One number */
+    number.addEventListener("click", function(){
+
+        if(textarea.value == ''){
+            alertBlock.removeAttribute("hidden", true);
+        }
+
+        else {
+
+            RandNumber = Math.floor(Math.random()*textarea.value);
+
+            header.removeAttribute("hidden",true);
+
+            header.innerHTML = "Random number:" + "\t" + RandNumber;
+
+        }
+
+    });
+
+    /* Number in current range */
+
+    range.addEventListener("click", function(){
+
+        if((firstNumber.value == '') || (secondNumber.value == '')) {
+            alertBlock.removeAttribute("hidden", true);
+        }
+        else {
+
+            function randomInteger(min, max) {
+                let rand = min - 0.5 + Math.random() * (max - min + 1);
+                return Math.round(rand);
+            }
+            var rangeRandom = randomInteger(firstNumber.value, secondNumber.value);
+
+            header.removeAttribute("hidden",true);
+
+            header.innerHTML = "Random number in the current range:" + "\t" + rangeRandom;
+
+        }
+
+    });
+
+    /* Random item */
+
+    item.addEventListener("click", function(){
+
+        if((textarea.value == '') || (typeof textarea.value === Number)){
+            alertBlock.removeAttribute("hidden", true);
+        }
+
+        else {
+
+            function getRandomWord()
+            {
+
+                var words = textarea.value.match(/[^\s]+/g) ;
+
+                var res = Math.floor(Math.random() * words.length);
+
+                return (words[res]);
+            }
+
+            header.removeAttribute("hidden",true);
+
+            header.innerHTML = "Winner:" +"\t"+ getRandomWord();
+
+        }
+
+    });
+
+    /* Random ordered list */
+
+    list.addEventListener("click", function(){
+
+        if((textarea.value == '') || (typeof textarea.value === Number)){
+            alertBlock.removeAttribute("hidden", true);
+        }
+
+        var words = textarea.value.match(/[^\s]+/g);
+
+        if(words != null){
+
+            function getRandomList(array){
+
+                for (var i = array.length - 1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    var temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+
+                return array;
+
+            }
+
+            words = getRandomList(words);
+
+            header.removeAttribute("hidden",true);
+
+            header.innerHTML = "Random list:" + "\t" + words.join(' => ');
+
+        }
+
+        else{
+            header.removeAttribute("hidden",true);
+            header.innerHTML = "Enter data please!";
+        }
+
+    });
+
+    /* Several random items */
+
+    severalItems.addEventListener("click", function(){
+
+        if((textarea.value == '') || (typeof textarea.value === Number)){
+            alertBlock.removeAttribute("hidden", true);
+        }
+
+        else {
+
+            var words = textarea.value.match(/[^\s]+/g) ;
+            var res = [];
+
+            function getRandomValue(words)
+            {
+
+                if(quantity.value > words.length){
+                    return "Enter correct value!";
+                }
+
+                for(let i = 0; i < quantity.value; i++){
+                    res.push(words[Math.floor(Math.random() * words.length)]);
+                }
+
+                var seen = {};
+                var out = [];
+                var len = res.length;
+                var j = 0;
+                for(var i = 0; i < len; i++) {
+                    var item = res[i];
+                    if(seen[item] !== 1) {
+                        seen[item] = 1;
+                        out[j++] = item;
+                    }
+
+                }
+
+                if(out.length < quantity.value){
+                    out.length = 0;
+                    res.length = 0;
+                    return getRandomValue(words);
+                }
+
+                return out.join(' & ');
+
+            }
+
+
+            header.removeAttribute("hidden",true);
+
+            header.innerHTML = "Winners:" +"\t"+ getRandomValue(words);
+        }
+    });
+
+    /* Random password */
+
+    password.addEventListener("click", function(){
+
+        if(pwd_len.value == ''){
+            alertBlock.removeAttribute("hidden", true);
+        }
+
+
+        var difficulty;
+
+        if(pwd_len.value == ''){
+            header.removeAttribute("hidden", true);
+            header.innerHTML = "Enter data please!";
+        }
+
+        else{
+
+            var radio = document.querySelectorAll('input[name="radio"]');
+            for (let i = 0; i < radio.length; i++) {
+                if (radio[i].checked) {
+                    difficulty = radio[i].value;
+
+                }
+            }
+
+            function generatePassword(pwd_len, difficulty){
+                var psw = [];
+
+                let arr = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "@", "#", "&", "$", "/", "*", "~", "^" ];
+
+                if(difficulty == "light"){
+                    if((pwd_len.value > 9) || (pwd_len.value <2)){
+                        return "Can not generate password! ";
+                    }
+
+                    for(let i = 0; i < arr.length; i++){
+                        if(i == pwd_len.value){
+                            break;
+                        }
+                        psw.push(arr[Math.floor(Math.random() *	9)]);
+
+                    }
+                }
+
+                else if(difficulty == "middle"){
+                    if((pwd_len.value > 16) || (pwd_len.value < 4)){
+                        return "Can not generate password!";
+                    }
+
+                    for(let i = 0; i < arr.length; i++){
+                        if(i == pwd_len.value){
+                            break;
+                        }
+                        psw.push(arr[Math.floor(Math.random() * 35)]);
+
+                    }
+                }
+
+                else if(difficulty == "difficult"){
+                    if((pwd_len.value > 16) || (pwd_len.value < 4)){
+                        return "Can not generate password!";
+                    }
+
+                    for(let i = 0; i < arr.length; i++){
+                        if(i == pwd_len.value){
+                            break;
+                        }
+                        psw.push(arr[Math.floor(Math.random() * 43)]);
+
+                    }
+                }
+
+                return psw;
+
+            }
+
+            header.removeAttribute("hidden", true);
+
+            header.innerHTML = generatePassword(pwd_len, difficulty);
+        }
+    });
+
+    /* Random colour */
+
+    color.addEventListener("click", function(){
+
+        coloredDiv.removeAttribute("hidden", true);
+
+        var r = Math.floor(Math.random()*256);
+
+        g = Math.floor(Math.random()*256);
+
+        b = Math.floor(Math.random()*256);
+
+        textarea.value = "See_color_below!";
+        coloredDiv.style.backgroundColor = "rgb("+r+", "+g+", "+b+")";
+    });
+
+    /* Random smile */
+
+    smile.addEventListener("click", function(){
+
+        textarea.value = "See_smile_below!";
+
+        var smileArray = ["&#128513;", "&#128514;", "&#128517;", "&#128518;", "&#128521;", "&#128522;", "&#128523;", "&#128524;", "&#128525;", "&#128526;", "&#128527;", "&#128528;", "&#128536;", "&#128540;", "&#128545;", "&#128548;", "&#128563;", "&#128571;", "&#128591;", "&#128588;", "&#128583;", "&#10084;", "&#128151;", "&#129392;", "&#128293;", "&#128077;", "&#128405;", "&#9996;", "&#129304", "&#128171;", "&#128640;" ];
+
+        smileHeader.removeAttribute("hidden",true);
+
+        smileHeader.innerHTML = smileArray[Math.floor(Math.random() * smileArray.length)];
+
+    });
+
+    /* Random Naruto character */
+
+    animImage.addEventListener("click", function(){
+        image.removeAttribute("hidden", true);
+        var src = ["https://static.wikia.nocookie.net/naruto/images/3/34/Sasuke_Part_1.jpg/revision/latest?cb=20210404192311&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/0/09/Naruto_newshot.png/revision/latest?cb=20210213224703&path-prefix=ru" , "https://static.wikia.nocookie.net/naruto/images/6/64/Sakura_Part_1.png/revision/latest?cb=20210224205026&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/2/27/Kakashi_Hatake.png/revision/latest?cb=20210214190655&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/9/97/Hinata.png/revision/latest?cb=20150215152718&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/b/bb/Itachi.png/revision/latest?cb=20210225204731&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/0/0c/Madara_img2.png/revision/latest?cb=20210227095726&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/4/46/Nagato.png/revision/latest?cb=20200327005137&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/4/4a/Obito_Uchiha.png/revision/latest?cb=20210214221823&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/9/9a/Sarada_Infobox.png/revision/latest?cb=20180723152825&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/4/4a/Gaara_p1.png/revision/latest?cb=20190310163727&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/2/21/Profile_Jiraiya.PNG/revision/latest?cb=20170818131513&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/7/71/Minato_Namikaze.png/revision/latest?cb=20200324174322&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/9/97/Rock_Lee_Part_I.png/revision/latest?cb=20190205134607&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/1/14/Orochimaru_Infobox.png/revision/latest?cb=20151017160235&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/8/8e/Neji_Part_I_Screenshot.png/revision/latest?cb=20210313213316&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/4/44/Shikamaru_Part_I.png/revision/latest?cb=20180225131949&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/8/89/Konohamaru_p1.png/revision/latest?cb=20150215165046&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/6/68/New_Boruto_infobox.png/revision/latest?cb=20220319093513&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/0/07/Sai_Infobox.png/revision/latest?cb=20190419133920&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/c/c9/Kabuto_Part_1.png/revision/latest?cb=20170906124719&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/5/5c/Mitsuki.png/revision/latest?cb=20180830180405&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/f/f7/Yamato_newshot.png/revision/latest?cb=20190202094154&path-prefix=ru", "https://static.wikia.nocookie.net/naruto/images/9/9c/Shino.png/revision/latest?cb=20170831172651&path-prefix=ru"];
+
+        var characters = ["Sasuke Uchiha", "Naruto Uzumaki", "Sakura Haruno", "Kakashi Hatake", "Hinata Hyuga", "Itachi Uchiha", "Madara Uchiha", "Nagato", "Obito Uchiha", "Sarada Uchiha", "Gaara", "Jiraiya", "Minato Namikaze", "Rock Lee", "Orochimaru", "Neji Hyuga", "Nara Shikamaru", "Sarutobi Konohamaru", "Uzumaki Boruto", "Sai", "Yakushi Kabuto", "Mitsuki", "Yamato", "Aburame Shino"];
+
+        var num = Math.floor(Math.random() * src.length);
+
+        image.src = src[num];
+
+        textarea.value = "See_character_below!";
+        character.removeAttribute("hidden", true);
+        character.innerHTML = characters[num];
+    });
+
+    reset.addEventListener("click", function(){
+        textarea.value = null;
+        firstNumber.value = null;
+        secondNumber.value = null;
+        header.setAttribute("hidden", true);
+        coloredDiv.setAttribute("hidden", true);
+        smileHeader.setAttribute("hidden", true);
+        image.setAttribute("hidden", true);
+        character.setAttribute("hidden", true);
+        quantityDiv.setAttribute("hidden", true);
+        quantity.value = null;
+        passwordDiv.setAttribute("hidden", true);
+        pwd_len.value = null;
+
+        for(let i = 0; i < radio.length; i++){
+            radio[i].checked = false;
+        }
+    });
+</script>
+</body>
+</html>
